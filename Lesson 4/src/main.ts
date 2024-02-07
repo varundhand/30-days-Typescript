@@ -80,7 +80,7 @@ const createError = (errMsg: string) : never => {
 const numberOrString = (value: number | string) : string  => {
     if (typeof value === 'number') return 'number'
     if (typeof value === 'string') return 'string'
-    throw new Error('Unexpected input type')
+    throw new Error('Unexpected input type') // return '' 
 }
 
 console.log(numberOrString(21));
