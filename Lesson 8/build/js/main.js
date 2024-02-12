@@ -1,5 +1,14 @@
 "use strict";
 // Utility types
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const partialAssignment = {
     studentId: 'varun'
 };
@@ -58,3 +67,22 @@ const preview = {
     title: 'The Yeet',
     // verified: true // cant put this property as its omitted 
 };
+const EligibleColors = 'Blue';
+//! RETURNTYPE ---> used to extract the return type of a function. 
+// ReturnType<typeof function> // it takes function type as the parameter and returns the type of value returned by the function
+// type newAssign = {title: string, pages: number}
+const createNewAssign = (title, pages) => {
+    return { title, pages };
+};
+const jsAssign = { title: 'Async Js', pages: 10 };
+const tsAssign = ['Utility types', 7];
+const tsAssign2 = createNewAssign(...tsAssign);
+console.log(tsAssign2);
+const fetchUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield fetch('https://jsonplaceholder.typicode.com/users/')
+        .then(res => res.json())
+        .catch(err => { if (err instanceof Error)
+        console.log(err.message); });
+    return data;
+});
+fetchUsers().then(data => console.log(data));

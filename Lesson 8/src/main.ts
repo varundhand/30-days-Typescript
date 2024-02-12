@@ -107,3 +107,63 @@ const preview: AssignPreview = {
     title: 'The Yeet',
     // verified: true // cant put this property as its omitted 
 }
+
+//! EXCLUDE ---> Exclude<Type, ExcludedUnion>
+
+type Colors = 'Red' | 'Blue' | 'Green'
+type NonRed = Exclude<Colors, 'Red'>
+
+const EligibleColors : NonRed = 'Blue'
+
+//! EXTRACT --->  Extract<Type, Union>
+
+type Animal = 'Dog' | 'Cat' | 'Bird'
+type DomesticAnimal = Extract<Animal, 'Dog' | 'Bird'>
+
+//! NONNULLABLE ---> removes null and undefined from the type
+
+type AllMembers = 'Varun' | 'Sid' | undefined | null
+type NamesOnly = NonNullable<AllMembers>
+
+//! RETURNTYPE ---> used to extract the return type of a function. 
+// ReturnType<typeof function> // it takes function type as the parameter and returns the type of value returned by the function
+
+// type newAssign = {title: string, pages: number}
+
+const createNewAssign = (title: string, pages: number) => {
+    return {title, pages}
+}
+
+type newAssign = ReturnType<typeof createNewAssign> // the return type gets automatically updated on updating the function
+
+const jsAssign : newAssign =  {title: 'Async Js', pages: 10}
+
+//! PARAMTERS ---> can derive the type of params
+
+type AssignParams = Parameters<typeof createNewAssign>
+
+const tsAssign: AssignParams = ['Utility types',7]
+
+const tsAssign2: newAssign = createNewAssign(...tsAssign)
+console.log(tsAssign2);
+
+//! AWAITED
+
+interface User {
+    id: number,
+    name:string,
+    username: string,
+    email: string,
+}
+
+const fetchUsers = async (): Promise<User[]> => {
+    const data = await fetch ('https://jsonplaceholder.typicode.com/users/')
+    .then(res => res.json())
+    .catch(err => {if (err instanceof Error) console.log(err.message)})
+    return data 
+}
+
+type FetchUserReturntype = Awaited<ReturnType<typeof fetchUsers>> // we need to wrap the returnType in Awaited in order to get the user array
+
+fetchUsers().then(data => console.log(data)
+)
